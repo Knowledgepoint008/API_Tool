@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang='en'>
+	<head>
+		<title>API Tool</title>
+		<style type="text/css">
+			* {
+				font-family: sans-serif;
+			}
+		</style>
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript">
+		function clearFields(){
+			$('#url').val('');
+			$('#result').val('');
+		}
+		</script>
+	</head>
+	<body>
+		<div id = "mainDiv" style="background: darkgreen;color: white;width:70%;margin-left: 12%;">
+		<h1>API Tool</h1>
+		<form method="post" id="form" style = "padding-left: 10%;">
+			<!-- <div>
+				<div style="float: left;"><b>Method</b></div>
+				<div><b>URL</b></div>
+			</div> -->
+			<div>
+				<div style="float: left;">
+					<select id = "method">
+						<option value = "GET" id = "get"><b>GET</b></option>
+						<option value = "POST" id = "post"><b>POST</b></option>
+					</select>	
+				</div>
+				<div style="float: left;">
+					<textarea rows="4" cols="80"  id = "url"></textarea>
+				</div>
+				<div>
+					<button><b>SUBMIT</b></button>
+				</div>
+			</div>
+			<div>
+				<div style = "margin-left: 7.5%;" >
+					<textarea rows="4" cols="80" id = "result" disabled="disabled"></textarea>
+				</div>
+				<div>
+					<button onclick="clearFields()"  style="width: 582px;margin-left: 7.5%;"><b>CLEAR</b></button>
+				</div>
+			</div>
+		</form>
+		</div>
+		<script>
+			$('#form').on('submit', function(e){
+				var methodType = $('#method').val();
+				var urlString = $('#url').val();
+				e.preventDefault();
+				$.ajax({
+					url: 'http://127.0.0.1:5000/square/',
+					data: {'urlString': urlString,'methodType':methodType},
+					method: 'POST',
+					success: function(data) {
+						$('#result').val('Result:  ' + data)
+					}
+				});
+			});
+		</script>
+	</body>
+</html>
